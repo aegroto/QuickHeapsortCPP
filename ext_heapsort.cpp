@@ -1,6 +1,10 @@
 #ifndef EXT_HEAPSORT_IN
 #define EXT_HEAPSORT_IN
 
+/****************************/
+/** SPECIAL LEAF SELECTION **/
+/****************************/
+
 unsigned int maxSpecialLeaf(int* A, unsigned int n) {
     int i = 1;
 
@@ -97,10 +101,10 @@ void qhsExternalMinHeapsort(int* A, int* EXT, unsigned int n) {
 /** TEST FUNCTIONS **/
 /********************/
 
-void externalHeapsortTest(int testArraySize, int tests) {
+void externalMinHeapsortTest(int testArraySize, int tests) {
     int currentTests = 0;
     
-    cout << "Launching an external heapsort test on " << tests << " random arrays..." << endl;
+    cout << "Launching an external min heapsort test on " << tests << " random arrays..." << endl;
 
     int* array = new int[testArraySize];
     int* originalArray = new int[testArraySize];
@@ -113,6 +117,47 @@ void externalHeapsortTest(int testArraySize, int tests) {
         
         int* extArray = new int[testArraySize];
         externalMinHeapsort(array, extArray, testArraySize);
+
+        bool sortCorrectness = verifySort(extArray, testArraySize);
+
+        if(!sortCorrectness) {
+            cout << endl << "Sort correctness: " <<  sortCorrectness << endl;
+            
+            cout << "Original array: ";
+            for(int i = 0; i < testArraySize; ++i) {
+                cout << originalArray[i] << " ";
+            }   
+            
+            cout << "\nSorted array: ";
+            for(int i = 0; i < testArraySize; ++i) {
+                cout << extArray[i] << " ";
+            }  
+
+            cout << endl;
+        }
+
+        currentTests++;
+    }
+
+    cout << "Done." << endl;
+}
+
+void externalMaxHeapsortTest(int testArraySize, int tests) {
+    int currentTests = 0;
+    
+    cout << "Launching an external max heapsort test on " << tests << " random arrays..." << endl;
+
+    int* array = new int[testArraySize];
+    int* originalArray = new int[testArraySize];
+
+    while(currentTests < tests) {
+        for(int i = 0; i < testArraySize; ++i) {
+            array[i] = rand() % 100;
+            originalArray[i] = array[i];
+        }     
+        
+        int* extArray = new int[testArraySize];
+        externalMaxHeapsort(array, extArray, testArraySize);
 
         bool sortCorrectness = verifySort(extArray, testArraySize);
 

@@ -1,3 +1,11 @@
+/*****************************************************************************/
+/**                     QuickHeapsort implementation                        **/
+/**                     Lorenzo Catania, ..(?).. 2017                       **/
+/**               Algorithm specifications may be found at                  **/
+/**   http://www.sciencedirect.com/science/article/pii/S0304397501002882    **/
+/**       Full source code: https://github.com/aegroto/QuickHeapsortCPP     **/
+/*****************************************************************************/
+
 #include <iostream>
 #include <cstdlib>
 #include <climits>
@@ -12,6 +20,5 @@ using namespace std;
 int main() {
     srand(time(0));
 
-    //externalHeapsortTest(2, 100);
-    quickHeapsortTest(15, 100);
+    quickHeapsortTest(20, 10000);
 }
