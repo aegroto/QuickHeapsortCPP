@@ -39,51 +39,57 @@ void quickHeapsort(int* A, int n) {
     if(n > 5) {
         int pivotIndex = choosePivotIndex(A, 0, n - 1);
 
-        cout << "\nSorting subarray: ";
+        /*cout << "\nSorting subarray: ";
         for(int i = 0; i < n; ++i)
             cout << A[i] << " ";
-        cout << "|| ";
+        cout << "|| ";*/
 
         int m = reversePartition(A, pivotIndex, 0, n - 1);
 
-        for(int i = 0; i < n; ++i)
+        /*for(int i = 0; i < n; ++i)
             cout << A[i] << " ";
-        cout << "With m = " << m << " (" << A[m] << ") and n = " << n << endl;
+        cout << "With m = " << m << " (" << A[m] << ") and n = " << n << endl;*/
 
-        if(m <= (n+1) / 2) {
+        if(m <= n / 2) {
             qhsExternalMaxHeapsort(A, A + (n - m), m);
             swap(A[m], A[n - m - 1]);
 
-            cout << "Sorted subarray: ";
+            /*cout << "Sorted subarray: ";
             for(int i = 0; i < n; ++i)
                 cout << A[i] << " ";
-            cout << "(m <= n/2)" << endl;
+            cout << "(m <= n/2)" << endl;*/
 
             quickHeapsort(A, n - m - 1);
         } else {
             qhsExternalMinHeapsort(A + m + 1, A, n - m - 1);
             swap(A[m], A[n - m - 1]);
 
-            cout << "Sorted subarray: ";
+            /*cout << "Sorted subarray: ";
             for(int i = 0; i < n; ++i)
                 cout << A[i] << " ";
-            cout << "(m > n/2)" << endl;
+            cout << "(m > n/2)" << endl;*/
 
             quickHeapsort(A + n - m, m);
         }
     } else {
         // TODO: implement a better sorting algorithm for a fixed number of elements (precisely 2,3,4 and 5)
-        for(int i = 1; i < 5; ++i) {
+        /* cout << "\nSorting subarray with insertion sort: ";
+        for(int i = 0; i < n; ++i)
+            cout << A[i] << " ";
+        cout << endl; */
+
+        for(int i = 1; i < n; ++i) {
             int key = A[i];
             int j = i-1;
 
-            while(j >= 0 && key < A[j]) {
+            while(j >= 0 && A[j] > key) {
                 A[j+1] = A[j];
                 --j;
             }    
 
             A[j+1] = key;
         }
+
     }
 }
 
@@ -100,14 +106,14 @@ void quickHeapsortTest(int testArraySize, int tests) {
     int* sortedArray = new int[testArraySize];
 
     while(currentTests < tests) {
-        array[0] = 53; array[1] = 13; array[2] = 5;
-        array[3] = 40;  array[4] = 67; array[5] = 76;
-        array[6] = 79;  array[7] = 63; array[8] = 68;
-        array[9] = 10;  array[10] = 68; array[11] = 30;
-        array[12] = 28;  array[13] = 37; array[14] = 61; 
+        /*array[0] = 81; array[1] = 85; array[2] = 95;
+        array[3] = 8;  array[4] = 99; array[5] = 1;
+        array[6] = 36;  array[7] = 21; array[8] = 73;
+        array[9] = 45;  array[10] = 92; array[11] = 35;
+        array[12] = 73;  array[13] = 35; array[14] = 19;*/
 
         for(int i = 0; i < testArraySize; ++i) {
-            //array[i] = rand() % 100;
+            array[i] = rand() % 100;
             sortedArray[i] = array[i];
         }
         /*for(int i = 0; i < testArraySize; ++i) {

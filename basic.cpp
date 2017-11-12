@@ -13,5 +13,5 @@ int main() {
     srand(time(0));
 
     //externalHeapsortTest(2, 100);
-    quickHeapsortTest(15, 1);
+    quickHeapsortTest(15, 100);
 }
