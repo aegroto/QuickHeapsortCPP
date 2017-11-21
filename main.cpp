@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 	srand(time(NULL));
 	
 	HeapTester t; 
-	t.VerifyEverything(100, 100, 200);
+	t.VerifyQuickHeapSortIntegrity(tstCnt, tstArraySz, tstArraySz);
 	printf("\n");
-	t.BenchmarkEverything(tstCnt, tstArraySz, tstArraySz);
+	//t.BenchmarkEverything(tstCnt, tstArraySz, tstArraySz);
 }

@@ -8,19 +8,20 @@
 template <class T> void MaxHeapify(T* A, size_t sz, size_t i)
 {
 	size_t largest = i;
-	size_t l = heap_left(i); size_t r = l+1; 
-	if (l < sz && A[l] > A[largest]) largest=l;
-	if (r < sz && A[r] > A[largest]) largest=r;
+	size_t l = heap_left(i); size_t r = l | 1; 
+	if (l <= sz && A[l] > A[largest]) largest=l;
+	if (r <= sz && A[r] > A[largest]) largest=r;
 	if (largest != i)
 	{
 		swap(A[i], A[largest]);
 		MaxHeapify(A, sz, largest);
 	}
 }
+
 template <class T> void MinHeapify(T* A, size_t sz, size_t i)
 {
 	size_t smallest = i;
-	size_t l = heap_left(i); size_t r = l+1; 
+	size_t l = heap_left(i); size_t r = l | 1; 
 	if (l < sz && A[l] < A[smallest]) smallest=l;
 	if (r < sz && A[r] < A[smallest]) smallest=r;
 	if (smallest != i) 
@@ -31,26 +32,26 @@ template <class T> void MinHeapify(T* A, size_t sz, size_t i)
 }
 template <class T> void BuildMaxHeap(T* A, size_t sz)
 {
-	for (int i = heap_parent(sz-1); i >= 0; i--)
+	for (int i = heap_parent(sz); i > 1; i--)
 		MaxHeapify(A, sz, i);
 }
 template <class T> void BuildMinHeap(T* A, size_t sz)
 {
-	for (int i = heap_parent(sz-1); i >= 0; i--)
+	for (int i = heap_parent(sz); i > 1; i--)
 		MinHeapify(A, sz, i);
 }
 
 template <class T> size_t ExternalMaxSpecialLeaf(T* A, size_t sz)
 {
 	size_t i = 1;
-	while(i < sz - 1) 
+	while(i < sz) 
 	{
 		if(A[i] <= A[i+1]) i++;
 		swap(A[heap_parent(i)], A[i]);
 		i = heap_left(i);
 	}
 	
-	if(i == sz - 1) 
+	if(i == sz) 
 	{
 		swap(A[heap_parent(i)], A[i]);
 		i = heap_left(i);
@@ -61,14 +62,14 @@ template <class T> size_t ExternalMaxSpecialLeaf(T* A, size_t sz)
 template <class T> size_t ExternalMinSpecialLeaf(T* A, size_t sz)
 {
 	size_t i = 1;
-	while(i < sz - 1) 
+	while(i < sz) 
 	{
 		if(A[i] > A[i+1]) i++;
 		swap(A[heap_parent(i)], A[i]);
 		i = heap_left(i);
 	}
 	
-	if(i == sz - 1) 
+	if(i == sz) 
 	{
 		swap(A[heap_parent(i)], A[i]);
 		i = heap_left(i);
@@ -78,8 +79,10 @@ template <class T> size_t ExternalMinSpecialLeaf(T* A, size_t sz)
 
 template <class T> void ExternalHeapsort(T* A, T* Ext, size_t sz, T min)
 {
+	A -= 1; // Array counting has to start from 1
+
 	BuildMaxHeap(A, sz);
-	for(int j = sz - 1; j >= 0; j--)
+	for(int j = sz; j > 1; j--)
 	{
 		Ext[j] = A[0];
 		A[ExternalMaxSpecialLeaf(A,sz)] = min;
@@ -87,10 +90,12 @@ template <class T> void ExternalHeapsort(T* A, T* Ext, size_t sz, T min)
 }
 
 
-template <class T> void ExternalSwapMaxHeapsort(T* A, T* Ext, size_t sz)
+template <class T> void ExternalSwapMaxHeapsort(T* A, T* Ext, size_t sz)	
 {
+	A -= 1; // Array counting has to start from 1
+
 	BuildMaxHeap(A, sz);
-	for(int j = sz - 1; j >= 0; j--)
+	for(int j = sz; j > 1; j--)
 	{
 		T temp = Ext[j];
 		Ext[j] = A[0];
@@ -100,8 +105,10 @@ template <class T> void ExternalSwapMaxHeapsort(T* A, T* Ext, size_t sz)
 
 template <class T> void ExternalSwapMinHeapsort(T* A, T* Ext, size_t sz)
 {
+	A -= 1; // Array counting has to start from 1
+
 	BuildMinHeap(A, sz);
-	for(size_t j = 0; j < sz; j++)
+	for(size_t j = 1; j < sz; j++)
 	{
 		T temp = Ext[j];
 		Ext[j] = A[0];
@@ -111,8 +118,10 @@ template <class T> void ExternalSwapMinHeapsort(T* A, T* Ext, size_t sz)
 
 template <class T> void Heapsort(T* A, size_t sz)
 {
+	A -= 1; // Array counting has to start from 1
+
 	BuildMaxHeap(A, sz);
-	for (size_t i = sz-1; i>= 1; i--)
+	for (size_t i = sz; i >= 1; i--)
 	{
 		swap(A[0], A[i]);
 		sz--;
@@ -137,7 +146,7 @@ template<class T> heap<T>::~heap()
 template <class T> void heap<T>::MaxHeapify(size_t i)
 {
 	size_t largest = i;
-	size_t l = heap_left(i); size_t r = l+1; 
+	size_t l = heap_left(i); size_t r = l | 1; 
 	if (l < size && data[l] > data[largest]) largest=l;
 	if (r < size && data[r] > data[largest]) largest=r;
 	if (largest != i)
@@ -150,7 +159,7 @@ template <class T> void heap<T>::MaxHeapify(size_t i)
 template <class T> void heap<T>::MinHeapify(size_t i)
 {
 	size_t smallest = i;
-	size_t l = heap_left(i); size_t r = l+1; 
+	size_t l = heap_left(i); size_t r = l | 1; 
 	if (l < size && data[l] < data[smallest]) smallest=l;
 	if (r < size && data[r] < data[smallest]) smallest=r;
 	if (smallest != i)
@@ -162,13 +171,13 @@ template <class T> void heap<T>::MinHeapify(size_t i)
 
 template <class T> void heap<T>::BuildMaxHeap()
 {
-	for (int i = heap_parent(size-1); i >= 0; i--)
+	for (int i = heap_parent(size); i > 0; i--)
 		MaxHeapify(i);
 }
 
 template <class T> void heap<T>::BuildMinHeap()
 {
-	for (int i = heap_parent(size-1); i >= 0; i--)
+	for (int i = heap_parent(size); i > 0; i--)
 		MinHeapify(i);
 }
 
@@ -176,7 +185,7 @@ template <class T> void heap<T>::Heapsort()
 {
 	BuildMaxHeap();
 	size_t prevSize = size;
-	for (size_t i = size-1; i>= 1; i--)
+	for (size_t i = size-1; i >= 1; i--)
 	{
 		swap(data[0], data[i]);
 		size--;

@@ -82,7 +82,7 @@ void HeapTester::VerifyHeapsortIntegrity(size_t testsNumber, size_t minArraySize
 void HeapTester::VerifyQuickHeapSortIntegrity(size_t testsNumber, size_t minArraySize, size_t maxArraySize)
 {
 	size_t currentTests = 0;
-    printf("Launching an heapsort test on %d random arrays...  ", testsNumber);
+    	printf("Launching a QuickHeapsort test on %d random arrays...  ", testsNumber);
 
 	int* array = new int[maxArraySize];
 	int* originalArray = new int[maxArraySize];
@@ -158,7 +158,7 @@ void HeapTester::VerifyExternalHeapSortIntegrity(size_t testsNumber, size_t minA
 void HeapTester::VerifyExternalSwapHeapSortIntegrity(size_t testsNumber, size_t minArraySize, size_t maxArraySize)
 {
 	int currentTests = 0;
-    printf("Launching an external max heapsort test on %d random arrays...  ", testsNumber);
+    printf("Launching an external (swap) max heapsort test on %d random arrays...  ", testsNumber);
 
 	int* array = new int[maxArraySize];
 	int* originalArray = new int[maxArraySize];
