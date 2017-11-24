@@ -27,8 +27,11 @@ int main(int argc, char** argv)
 	srand(time(NULL));
 	
 	HeapTester t; 
-	t.VerifyHeapsortIntegrity(tstCnt, tstArraySz, tstArraySz);
-	t.VerifyExternalHeapSortIntegrity(tstCnt, tstArraySz, tstArraySz);
+	//t.VerifyHeapsortIntegrity(tstCnt, tstArraySz, tstArraySz);
+	//t.VerifyExternalHeapSortIntegrity(tstCnt, tstArraySz, tstArraySz);
+	//t.VerifyExternalSwapHeapSortIntegrity(tstCnt, tstArraySz, tstArraySz);
+	t.VerifyQuickHeapSortIntegrity(tstCnt, tstArraySz, tstArraySz);
+
 	/*t.VerifyEverything(tstCnt, tstArraySz, tstArraySz);
 	printf("\n");
 	t.BenchmarkEverything(tstCnt, tstArraySz, tstArraySz); */
