@@ -21,15 +21,12 @@ template<class T> inline size_t min3_array(T* A, size_t i, size_t j, size_t k) {
 //c++ versions (in c++ 14 it has specific requirements).
 template<class T> inline void swap(T& a, T& b) { T c = a; a = b; b = c; }
 
-// Gets the index of the left child of the i-th node. Compiled as a single MADD (MAC)
-// instruction on most processors or as a LSR and an ADD by older ones.
-inline size_t heap_left(size_t i) { return (i*2)+1; }
+// Gets the index of the left child of the i-th node. 
+inline size_t heap_left(size_t i) { return (i<<1); }
 //Gets the index of the right child of the i-th node.
-inline size_t heap_right(size_t i) { return (i*2)+2; }
-//Gets the index of the parent of the i-th node. Useless to use the '/' operator here,
-//a good compiler will surely compile to this anyway since unsigned right shift is not undefined behavior.
-//We place it here explicitly so that crap ones get the performance boost.
-inline size_t heap_parent(size_t i) { return (i-1)>>1; }
+inline size_t heap_right(size_t i) { return (i<<1)|1; }
+//Gets the index of the parent of the i-th node.
+inline size_t heap_parent(size_t i) { return i>>1; }
 //---------------------------------------------------------------------------------------------------------
 
 
